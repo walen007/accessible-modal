@@ -1,11 +1,35 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["vitest/globals"],
+    "baseUrl": ".",
+    "paths": {
+      "@atoms": ["src/components/atoms"],
+      "@atoms/*": ["src/components/atoms/*"],
+      "@molecules": ["src/components/molecules"],
+      "@molecules/*": ["src/components/molecules/*"],
+      "@organisms": ["src/components/organisms"],
+      "@organisms/*": ["src/components/organisms/*"],
+      "@styles": ["src/common/styles"],
+      "@styles/*": ["src/common/styles/*"]
     }
-  ]
+  },
+  "include": ["src", "src/test/setupTests.ts", ".dev_tools/server-new.ts"],
+  "exclude": [".dev_tools"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
