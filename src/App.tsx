@@ -20,9 +20,8 @@ function App({ id }: { id?: string }): JSX.Element {
   const saveModalOne = () => {
     setIsModalOneProcessing(true);
 
-    // Simulate a long running process
+    // Simulate an async process
     setTimeout(() => {
-      setIsModalOneProcessing(false);
       setIsModalOneOpen(false);
     }, 2000);
   };
@@ -30,9 +29,8 @@ function App({ id }: { id?: string }): JSX.Element {
   const saveModalTwo = () => {
     setIsModalTwoProcessing(true);
 
-    // Simulate a long running process
+    // Simulate an async process
     setTimeout(() => {
-      setIsModalTwoProcessing(false);
       setIsModalTwoOpen(false);
     }, 2000);
   };

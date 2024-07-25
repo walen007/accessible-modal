@@ -29,12 +29,17 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
 }): JSX.Element => {
   const overlayRef = useRef<HTMLDivElement>(null);
 
+  const fadeOut = useCallback(() => {
+    closeModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [closeModal]); // isProcessing is required here to trigger modal close
+
   const handleClose = useCallback(
     (evt: PointerEvent<HTMLButtonElement>): void => {
       evt.stopPropagation();
-      closeModal();
+      fadeOut();
     },
-    [closeModal]
+    [fadeOut]
   );
 
   const handleSave = useCallback(
@@ -48,19 +53,15 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
   const handleKeypress = useCallback(
     (evt: KeyboardEvent): void => {
       if (evt.key === 'Escape') {
-        closeModal();
+        fadeOut();
       }
     },
-    [closeModal]
+    [fadeOut]
   );
 
   const handleModalClick = useCallback((evt: PointerEvent<HTMLDivElement>): void => {
     evt.stopPropagation();
   }, []);
-
-  useEffect(() => {
-    if (isProcessing === false) closeModal();
-  }, [closeModal, isProcessing]);
 
   useEffect(() => {
     document.body.classList.add('lockScroll');
@@ -76,11 +77,17 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
 
   return (
     <>
-      <div ref={overlayRef} data-testid={id} onClick={closeModal} className={styles.overlay}>
+      <div
+        ref={overlayRef}
+        data-testid={id}
+        onClick={fadeOut}
+        // className={cn(styles.overlay, { [styles.show]: isOpen })}
+        className={cn(styles.overlay, styles.show)}
+      >
         <div onClick={handleModalClick} className={cn(styles.modal, ctxModalStyle)}>
           <div className={cn(styles.header, ctxHeaderStyle)}>
             <h3>{title}</h3>
-            <button onClick={closeModal} className={styles.closeButton}>
+            <button onClick={fadeOut} className={styles.closeButton}>
               <CloseSvg />
             </button>
           </div>
