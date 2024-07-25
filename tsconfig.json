@@ -26,9 +26,11 @@
       "@organisms": ["src/components/organisms"],
       "@organisms/*": ["src/components/organisms/*"],
       "@styles": ["src/common/styles"],
-      "@styles/*": ["src/common/styles/*"]
+      "@styles/*": ["src/common/styles/*"],
+      "@test": ["src/test"],
+      "@test/*": ["src/test/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/test/setupTests.ts"],
   "exclude": [".dev_tools"]
 }
