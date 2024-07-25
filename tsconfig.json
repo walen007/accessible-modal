@@ -29,7 +29,6 @@
       "@styles/*": ["src/common/styles/*"]
     }
   },
-  "include": ["src", "src/test/setupTests.ts", ".dev_tools/server-new.ts"],
-  "exclude": [".dev_tools"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src"],
+  "exclude": [".dev_tools"]
 }
