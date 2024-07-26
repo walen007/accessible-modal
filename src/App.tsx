@@ -5,67 +5,84 @@ import styles from './App.module.scss';
 
 const MODAL_1_EVENT = 'm1Completed';
 const MODAL_2_EVENT = 'm2Completed';
+const MODAL_3_EVENT = 'm3Completed';
 
 function App({ id }: { id?: string }): JSX.Element {
-  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
-  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
+  const [isModalAttnOpen, setIsModalAttnOpen] = useState(false);
+  const [isModalInfoOpen, setIsModalInfoOpen] = useState(false);
+  const [isModalNlOpen, setIsModalNlOpen] = useState(false);
 
-  const [isModalOneProcessing, setIsModalOneProcessing] = useState(false);
-  const [isModalTwoProcessing, setIsModalTwoProcessing] = useState(false);
+  const [isAttnModalProcessing, setIsAttnModalProcessing] = useState(false);
+  const [isInfoModalProcessing, setIsInfoModalProcessing] = useState(false);
+  const [isNlModalProcessing, setIsNlModalProcessing] = useState(false);
 
-  const toggleModalOne = () => {
-    setIsModalOneOpen(prev => !prev);
+  const toggleAttnModal = () => {
+    setIsModalAttnOpen(prev => !prev);
   };
 
-  const toggleModalTwo = () => {
-    setIsModalTwoOpen(prev => !prev);
+  const toggleInfoModal = () => {
+    setIsModalInfoOpen(prev => !prev);
   };
 
-  const saveModalOne = () => {
-    setIsModalOneProcessing(true);
+  const toggleNlModal = () => {
+    setIsModalNlOpen(prev => !prev);
+  };
+
+  const saveAttnModal = () => {
+    setIsAttnModalProcessing(true);
 
     // Simulate an async process
     setTimeout(() => {
-      setIsModalOneProcessing(false);
+      setIsAttnModalProcessing(false);
       document.dispatchEvent(createCustomEvent(MODAL_1_EVENT));
     }, 2000);
   };
 
-  const saveModalTwo = () => {
-    setIsModalTwoProcessing(true);
+  const saveInfoModal = () => {
+    setIsInfoModalProcessing(true);
 
     // Simulate an async process
     setTimeout(() => {
-      setIsModalTwoProcessing(false);
+      setIsInfoModalProcessing(false);
       document.dispatchEvent(createCustomEvent(MODAL_2_EVENT));
+    }, 2000);
+  };
+
+  const saveNlModal = () => {
+    setIsNlModalProcessing(true);
+
+    // Simulate an async process
+    setTimeout(() => {
+      setIsNlModalProcessing(false);
+      document.dispatchEvent(createCustomEvent(MODAL_3_EVENT));
     }, 2000);
   };
 
   return (
     <div data-testid={id}>
       {/* Unmount modal when not opened */}
-      {isModalOneOpen && (
+      {isModalAttnOpen && (
         <Modal
           title="Attention"
           customEvent={MODAL_1_EVENT}
-          saveModal={saveModalOne}
-          closeModal={toggleModalOne}
+          saveModal={saveAttnModal}
+          closeModal={toggleAttnModal}
           ctxModalStyle={styles.attnModal}
           ctxBodyStyle={styles.attnModalBody}
-          isProcessing={isModalOneProcessing}
+          isProcessing={isAttnModalProcessing}
         >
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, fugit.
         </Modal>
       )}
 
       {/* Unmount modal when not opened */}
-      {isModalTwoOpen && (
+      {isModalInfoOpen && (
         <Modal
           title="Information"
           customEvent={MODAL_2_EVENT}
-          saveModal={saveModalTwo}
-          closeModal={toggleModalTwo}
-          isProcessing={isModalTwoProcessing}
+          saveModal={saveInfoModal}
+          closeModal={toggleInfoModal}
+          isProcessing={isInfoModalProcessing}
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quasi quibusdam eligendi non? Unde
           reprehenderit quae quo eius minima sed non incidunt commodi perferendis libero aspernatur tenetur iste
@@ -87,12 +104,30 @@ function App({ id }: { id?: string }): JSX.Element {
         </Modal>
       )}
 
+      {/* Unmount modal when not opened */}
+      {isModalNlOpen && (
+        <Modal
+          title="Newsletter Subscription"
+          customEvent={MODAL_3_EVENT}
+          ctxModalStyle={styles.nlModal}
+          ctxBodyStyle={styles.nlModalBody}
+          saveModal={saveNlModal}
+          closeModal={toggleNlModal}
+          isProcessing={isNlModalProcessing}
+        >
+          <input type="text" name="email" className={styles.emailIpnut} placeholder="Email address" />
+        </Modal>
+      )}
+
       <div className={styles.pageWrapper}>
-        <button className={styles.btnShowModal} onClick={toggleModalOne}>
+        <button onClick={toggleAttnModal} className={styles.btnShowModal} aria-description="show attention modal">
           Show Attn Modal
         </button>
-        <button className={styles.btnShowModal} onClick={toggleModalTwo}>
+        <button onClick={toggleInfoModal} className={styles.btnShowModal} aria-description="show info modal">
           Show Info Modal
+        </button>
+        <button onClick={toggleNlModal} className={styles.btnShowModal} aria-description="show newsletter modal">
+          Show Newsletter Modal
         </button>
       </div>
     </div>

@@ -22,17 +22,17 @@ interface IModal {
 export const Modal: React.FC<IModal & PropsWithChildren> = ({
   id,
   title,
-  ctxHeaderStyle,
-  ctxBodyStyle,
-  ctxFooterStyle,
-  ctxModalStyle,
   isProcessing,
   customEvent,
   closeModal,
   saveModal,
+  ctxHeaderStyle,
+  ctxBodyStyle,
+  ctxFooterStyle,
+  ctxModalStyle,
   children,
 }): JSX.Element => {
-  const { overlayRef, fadeOut, handleClose, handleSave, handleModalClick } = useModal(
+  const { overlayRef, modalRef, fadeOut, handleClose, handleSave, handleModalClick } = useModal(
     closeModal,
     saveModal,
     customEvent,
@@ -42,19 +42,38 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
   return (
     <>
       <div ref={overlayRef} data-testid={id} onClick={fadeOut} className={cn(styles.overlay, styles.show)}>
-        <div onClick={handleModalClick} className={cn(styles.modal, ctxModalStyle)}>
+        <div
+          ref={modalRef}
+          tabIndex={-1}
+          onClick={handleModalClick}
+          className={cn(styles.modal, ctxModalStyle)}
+          aria-live="assertive"
+          aria-description={`${title} modal`}
+        >
           <div className={cn(styles.header, ctxHeaderStyle)}>
             <h3>{title}</h3>
-            <button onClick={fadeOut} className={styles.closeButton}>
+            <button aria-description="header close button" onClick={fadeOut} className={styles.closeButton}>
               <CloseSvg />
             </button>
           </div>
-          <div className={cn(styles.modalBody, ctxBodyStyle)}>{children}</div>
+          <div className={cn(styles.modalBody, ctxBodyStyle)} tabIndex={0} aria-description="modal body">
+            {children}
+          </div>
           <div className={cn(styles.footer, ctxFooterStyle)}>
-            <button className={styles.closeButton} onClick={handleClose} disabled={isProcessing}>
+            <button
+              className={styles.closeButton}
+              onClick={handleClose}
+              aria-description="footer close button"
+              disabled={isProcessing}
+            >
               Close
             </button>
-            <button className={styles.saveButton} onClick={handleSave}>
+            <button
+              onClick={handleSave}
+              className={styles.saveButton}
+              aria-description="save button"
+              aria-busy={isProcessing}
+            >
               {isProcessing === true ? <IsProcessingSvg style={styles.loadingSvg} /> : 'Save'}
             </button>
           </div>

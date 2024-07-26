@@ -27,20 +27,35 @@
   }
 }
 
-// Attention modal context styles
-.attnModal {
+// Context styles
+.attnModal, .nlModal {
   width: 35rem;
   height: 15rem;
 }
 
-.attnModalBody {
+.attnModalBody, .nlModalBody  {
   border: 0;
   padding: 0;
   background-color: inherit;
 }
 
+.nlModalBody {
+  .emailIpnut {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.3rem;
+    max-height: 4rem;
+    border: 1px solid #cbcbcb;
+
+    &:focus-visible {
+      outline: 0;
+    }
+  }
+}
+
 @include base.max(xs, -1) {
-  .attnModal {
+  .attnModal,
+  .nlModal {
     width: 100vw;
     height: 100vh;
   }
