@@ -16,7 +16,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "node"],
     "baseUrl": ".",
     "paths": {
       "@atoms": ["src/components/atoms"],
@@ -25,6 +25,8 @@
       "@molecules/*": ["src/components/molecules/*"],
       "@organisms": ["src/components/organisms"],
       "@organisms/*": ["src/components/organisms/*"],
+      "@events": ["src/common/events"],
+      "@events/*": ["src/common/events/*"],
       "@styles": ["src/common/styles"],
       "@styles/*": ["src/common/styles/*"],
       "@test": ["src/test"],

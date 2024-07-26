@@ -7,7 +7,7 @@ describe('<Modal />', () => {
     const body = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, fugit.';
 
     const { getByTestId } = render(
-      <Modal id={id} saveModal={() => null} closeModal={() => null} title="Info Modal">
+      <Modal id={id} saveModal={() => null} closeModal={() => null} title="Info Modal" customEvent="eventeee">
         {body}
       </Modal>
     );

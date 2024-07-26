@@ -22,6 +22,7 @@ function App({ id }: { id?: string }): JSX.Element {
 
     // Simulate an async process
     setTimeout(() => {
+      setIsModalOneProcessing(false);
       setIsModalOneOpen(false);
     }, 2000);
   };
@@ -31,6 +32,7 @@ function App({ id }: { id?: string }): JSX.Element {
 
     // Simulate an async process
     setTimeout(() => {
+      setIsModalTwoProcessing(false);
       setIsModalTwoOpen(false);
     }, 2000);
   };

@@ -1,7 +1,8 @@
-import React, { useEffect, useCallback, useRef, PropsWithChildren, PointerEvent } from 'react';
+import React, { PropsWithChildren } from 'react';
 import cn from 'classnames';
-import styles from './Modal.module.scss';
 import { CloseSvg, IsProcessingSvg } from '@atoms';
+import { useModal } from './useModal';
+import styles from './Modal.module.scss';
 
 interface IModal {
   id?: string;
@@ -11,6 +12,7 @@ interface IModal {
   ctxFooterStyle?: string;
   ctxModalStyle?: string;
   isProcessing?: boolean;
+  customEvent: string;
   closeModal: () => void;
   saveModal: () => void;
 }
@@ -23,67 +25,21 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
   ctxFooterStyle,
   ctxModalStyle,
   isProcessing,
+  customEvent,
   closeModal,
   saveModal,
   children,
 }): JSX.Element => {
-  const overlayRef = useRef<HTMLDivElement>(null);
-
-  const fadeOut = useCallback(() => {
-    closeModal();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [closeModal]); // isProcessing is required here to trigger modal close
-
-  const handleClose = useCallback(
-    (evt: PointerEvent<HTMLButtonElement>): void => {
-      evt.stopPropagation();
-      fadeOut();
-    },
-    [fadeOut]
+  const { overlayRef, fadeOut, handleClose, handleSave, handleModalClick } = useModal(
+    closeModal,
+    saveModal,
+    customEvent,
+    styles.overlayFadeOut
   );
-
-  const handleSave = useCallback(
-    (evt: PointerEvent<HTMLButtonElement>): void => {
-      evt.stopPropagation();
-      saveModal();
-    },
-    [saveModal]
-  );
-
-  const handleKeypress = useCallback(
-    (evt: KeyboardEvent): void => {
-      if (evt.key === 'Escape') {
-        fadeOut();
-      }
-    },
-    [fadeOut]
-  );
-
-  const handleModalClick = useCallback((evt: PointerEvent<HTMLDivElement>): void => {
-    evt.stopPropagation();
-  }, []);
-
-  useEffect(() => {
-    document.body.classList.add('lockScroll');
-    document.addEventListener('keydown', handleKeypress);
-
-    return () => {
-      document.body.classList.remove('lockScroll');
-      document.removeEventListener('keydown', handleKeypress);
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>
-      <div
-        ref={overlayRef}
-        data-testid={id}
-        onClick={fadeOut}
-        // className={cn(styles.overlay, { [styles.show]: isOpen })}
-        className={cn(styles.overlay, styles.show)}
-      >
+      <div ref={overlayRef} data-testid={id} onClick={fadeOut} className={cn(styles.overlay, styles.show)}>
         <div onClick={handleModalClick} className={cn(styles.modal, ctxModalStyle)}>
           <div className={cn(styles.header, ctxHeaderStyle)}>
             <h3>{title}</h3>
