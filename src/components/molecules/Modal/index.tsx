@@ -7,14 +7,16 @@ import styles from './Modal.module.scss';
 interface IModal {
   id?: string;
   title: string;
-  ctxHeaderStyle?: string;
-  ctxBodyStyle?: string;
-  ctxFooterStyle?: string;
-  ctxModalStyle?: string;
   isProcessing?: boolean;
   customEvent: string;
   closeModal: () => void;
   saveModal: () => void;
+
+  // Optional context styles
+  ctxHeaderStyle?: string;
+  ctxBodyStyle?: string;
+  ctxFooterStyle?: string;
+  ctxModalStyle?: string;
 }
 
 export const Modal: React.FC<IModal & PropsWithChildren> = ({
@@ -47,9 +49,9 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
               <CloseSvg />
             </button>
           </div>
-          <div className={cn(styles.body, ctxBodyStyle)}>{children}</div>
+          <div className={cn(styles.modalBody, ctxBodyStyle)}>{children}</div>
           <div className={cn(styles.footer, ctxFooterStyle)}>
-            <button className={styles.closeButton} onClick={handleClose}>
+            <button className={styles.closeButton} onClick={handleClose} disabled={isProcessing}>
               Close
             </button>
             <button className={styles.saveButton} onClick={handleSave}>

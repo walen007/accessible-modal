@@ -16,7 +16,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', 'react-refresh'],
-  ignorePatterns: ['vite.config.ts', '.eslintrc.cjs', 'postcss.config.cjs'],
+  ignorePatterns: ['vite.config.ts', '.eslintrc.cjs', 'postcss.config.cjs', 'src/test', 'dist'],
   settings: {
     react: {
       version: 'detect',

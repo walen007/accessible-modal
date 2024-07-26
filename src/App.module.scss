@@ -1,19 +1,29 @@
+@use '@styles/base';
+
 .pageWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 5rem;
-  gap: 5rem;
+  @include base.flex-row;
+  padding: 5rem 2rem;
+  gap: 2rem;
 
   .btnShowModal {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     color: #fff;
     border-radius: 0.5rem;
-    background-color: #198754;
+    background-color: #1a73e8;
 
     &:active {
-      background-color: #0a643a;
+      background-color: #0c428a;
     }
+
+    &:focus {
+      box-shadow: 0 0 0 0.4rem rgb(49 132 253 / 50%);
+    }
+  }
+}
+
+@include base.max(xs, 87) {
+  .pageWrapper {
+    @include base.flex-col;
   }
 }
 
@@ -27,4 +37,11 @@
   border: 0;
   padding: 0;
   background-color: inherit;
+}
+
+@include base.max(xs, -1) {
+  .attnModal {
+    width: 100vw;
+    height: 100vh;
+  }
 }

@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Modal } from '@molecules/Modal';
+import { createCustomEvent } from '@events';
 import styles from './App.module.scss';
+
+const MODAL_1_EVENT = 'm1Completed';
+const MODAL_2_EVENT = 'm2Completed';
 
 function App({ id }: { id?: string }): JSX.Element {
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
@@ -23,7 +27,7 @@ function App({ id }: { id?: string }): JSX.Element {
     // Simulate an async process
     setTimeout(() => {
       setIsModalOneProcessing(false);
-      setIsModalOneOpen(false);
+      document.dispatchEvent(createCustomEvent(MODAL_1_EVENT));
     }, 2000);
   };
 
@@ -33,16 +37,17 @@ function App({ id }: { id?: string }): JSX.Element {
     // Simulate an async process
     setTimeout(() => {
       setIsModalTwoProcessing(false);
-      setIsModalTwoOpen(false);
+      document.dispatchEvent(createCustomEvent(MODAL_2_EVENT));
     }, 2000);
   };
 
   return (
     <div data-testid={id}>
-      {/* Better to unmount modal when not opened */}
+      {/* Unmount modal when not opened */}
       {isModalOneOpen && (
         <Modal
           title="Attention"
+          customEvent={MODAL_1_EVENT}
           saveModal={saveModalOne}
           closeModal={toggleModalOne}
           ctxModalStyle={styles.attnModal}
@@ -53,12 +58,13 @@ function App({ id }: { id?: string }): JSX.Element {
         </Modal>
       )}
 
-      {/* Better to unmount modal when not opened */}
+      {/* Unmount modal when not opened */}
       {isModalTwoOpen && (
         <Modal
+          title="Information"
+          customEvent={MODAL_2_EVENT}
           saveModal={saveModalTwo}
           closeModal={toggleModalTwo}
-          title="Information"
           isProcessing={isModalTwoProcessing}
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quasi quibusdam eligendi non? Unde
@@ -83,10 +89,10 @@ function App({ id }: { id?: string }): JSX.Element {
 
       <div className={styles.pageWrapper}>
         <button className={styles.btnShowModal} onClick={toggleModalOne}>
-          Show Modal One
+          Show Attn Modal
         </button>
         <button className={styles.btnShowModal} onClick={toggleModalTwo}>
-          Show Modal Two
+          Show Info Modal
         </button>
       </div>
     </div>
