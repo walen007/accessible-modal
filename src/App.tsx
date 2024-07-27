@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import cn from 'classnames';
 import { Modal } from '@molecules/Modal';
 import { createCustomEvent } from '@events';
 import styles from './App.module.scss';
@@ -69,7 +70,7 @@ function App({ id }: { id?: string }): JSX.Element {
           saveModal={saveAttnModal}
           closeModal={toggleAttnModal}
           ctxModalStyle={styles.attnModal}
-          ctxBodyStyle={styles.attnModalBody}
+          ctxBodyStyle={cn(styles.attnModalBody, 'hideScrollbar')}
           isProcessing={isAttnModalProcessing}
         >
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo, fugit.
@@ -111,7 +112,7 @@ function App({ id }: { id?: string }): JSX.Element {
           title="Newsletter Subscription"
           customEvent={MODAL_3_EVENT}
           ctxModalStyle={styles.nlModal}
-          ctxBodyStyle={styles.nlModalBody}
+          ctxBodyStyle={cn(styles.nlModalBody, 'hideScrollbar')}
           saveModal={saveNlModal}
           closeModal={toggleNlModal}
           isProcessing={isNlModalProcessing}
