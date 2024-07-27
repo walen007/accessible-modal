@@ -1,6 +1,6 @@
 # Accessible Modal
 
-This project demonstrates several key features that must be present to ensure proper functionality and usability for all users, including those relying on assistive technologies
+This project demonstrates several key features that must be present in a Modal to ensure proper functionality and usability for all users, including those relying on assistive technologies
 
 - Focus management
 - Keyboard navigation
