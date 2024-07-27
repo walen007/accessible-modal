@@ -7,16 +7,16 @@
 
   .btnShowModal {
     padding: 1rem 2rem;
-    color: #fff;
+    color: var(--app-white, #fff);
     border-radius: 0.5rem;
-    background-color: #1a73e8;
+    background-color: var(--app-primary, #1a73e8);
 
     &:active {
-      background-color: #0c428a;
+      background-color: var(--app-primary-active, #0c428a);
     }
 
     &:focus {
-      box-shadow: 0 0 0 0.4rem rgb(49 132 253 / 50%);
+      box-shadow: var(--app-focus);
     }
   }
 }
@@ -28,12 +28,14 @@
 }
 
 // Context styles
-.attnModal, .nlModal {
+.attnModal,
+.nlModal {
   width: 35rem;
   height: 15rem;
 }
 
-.attnModalBody, .nlModalBody  {
+.attnModalBody,
+.nlModalBody {
   border: 0;
   padding: 0;
   background-color: inherit;
@@ -45,7 +47,7 @@
     padding: 1rem;
     border-radius: 0.3rem;
     max-height: 4rem;
-    border: 1px solid #cbcbcb;
+    border: 1px solid var(--app-border-color, #dcdcdc);
 
     &:focus-visible {
       outline: 0;
