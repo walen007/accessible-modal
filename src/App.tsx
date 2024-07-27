@@ -7,6 +7,7 @@ const MODAL_1_EVENT = 'm1Completed';
 const MODAL_2_EVENT = 'm2Completed';
 const MODAL_3_EVENT = 'm3Completed';
 
+// id for tests only
 function App({ id }: { id?: string }): JSX.Element {
   const [isModalAttnOpen, setIsModalAttnOpen] = useState(false);
   const [isModalInfoOpen, setIsModalInfoOpen] = useState(false);

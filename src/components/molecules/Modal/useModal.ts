@@ -21,6 +21,7 @@ export const useModal = (
   const fadeOut = useCallback(() => {
     if (overlayRef.current) overlayRef.current.classList.add(fadeOutStyle);
 
+    // Delays component unmount to make a smoother fade-out
     setTimeout(() => {
       closeModal();
     }, 1000);
@@ -91,11 +92,13 @@ export const useModal = (
       }
     };
 
+    // Add event listeners after mount
     document.body.classList.add('lockScroll');
     document.addEventListener('keydown', handleKeypress);
     document.addEventListener(customEvent, fadeOut);
     document.addEventListener('focusin', trapFocus, true);
 
+    // Remove event listeners before unmount
     return () => {
       document.body.classList.remove('lockScroll');
       document.removeEventListener('keydown', handleKeypress);
