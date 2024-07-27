@@ -84,19 +84,10 @@ export const useModal = (
     const handleKeypress = (evt: KeyboardEvent): void => {
       if (evt.key === 'Escape') return fadeOut();
 
-      // Prevent focus escape when using     Tab+Shift
-      if (evt.key === 'Tab') {
-        if (evt.shiftKey) {
-          if (document.activeElement === firstElement) {
-            evt.preventDefault();
-            lastElement?.focus();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
-            evt.preventDefault();
-            firstElement?.focus();
-          }
-        }
+      // Prevent focus escape when using Tab+Shift
+      if (evt.key === 'Tab' && evt.shiftKey && document.activeElement === firstElement) {
+        evt.preventDefault();
+        lastElement?.focus();
       }
     };
 

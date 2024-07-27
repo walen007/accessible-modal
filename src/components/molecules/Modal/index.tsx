@@ -4,7 +4,7 @@ import { CloseSvg, IsProcessingSvg } from '@atoms';
 import { useModal } from './useModal';
 import styles from './Modal.module.scss';
 
-interface IModal {
+export interface IModal {
   id?: string;
   title: string;
   isProcessing?: boolean;
@@ -52,7 +52,12 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
         >
           <div className={cn(styles.header, ctxHeaderStyle)}>
             <h3>{title}</h3>
-            <button aria-description="header close button" onClick={fadeOut} className={styles.closeButton}>
+            <button
+              aria-label="header close button"
+              aria-description="header close button"
+              onClick={fadeOut}
+              className={styles.closeButton}
+            >
               <CloseSvg />
             </button>
           </div>
@@ -63,6 +68,7 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
             <button
               className={styles.closeButton}
               onClick={handleClose}
+              aria-label="footer close button"
               aria-description="footer close button"
               disabled={isProcessing}
             >
@@ -71,8 +77,10 @@ export const Modal: React.FC<IModal & PropsWithChildren> = ({
             <button
               onClick={handleSave}
               className={styles.saveButton}
+              aria-label="footer save button"
               aria-description="save button"
               aria-busy={isProcessing}
+              disabled={isProcessing}
             >
               {isProcessing === true ? <IsProcessingSvg style={styles.loadingSvg} /> : 'Save'}
             </button>
